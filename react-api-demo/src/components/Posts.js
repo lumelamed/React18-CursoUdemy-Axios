@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { getPosts, deletePosts } from "../services/postService";
+import { getPosts, deletePost } from "../services/postService";
+import PostForm from "./PostForm";
 
 export default function Posts() {
   const [posts, setPosts] = useState([]);
+  const [editingPost, setEditingPost] = useState(null);
 
   useEffect(() => {
     getPosts()
@@ -15,7 +17,7 @@ export default function Posts() {
   }, []);
 
   const handleDelete = (id) => {
-    deletePosts(id)
+    deletePost(id)
       .then((result) => {
         setPosts(posts.filter((post) => post.id !== id));
       })
@@ -24,14 +26,25 @@ export default function Posts() {
       });
   };
 
+  const startEditing = (posts) => {
+    setEditingPost(posts);
+  };
+
   return (
     <div>
       <h1>Posts</h1>
+      <PostForm
+        posts={posts}
+        setPosts={setPosts}
+        editingPost={editingPost}
+        setEditingPost={setEditingPost}
+      ></PostForm>
       <ul>
         {posts.map((post) => (
           <li key={post.id}>
             <h2>{post.title}</h2>
             <p>{post.body}</p>
+            <button onClick={() => startEditing(post)}>Edit</button>
             <button onClick={() => handleDelete(post.id)}>Delete</button>
           </li>
         ))}
