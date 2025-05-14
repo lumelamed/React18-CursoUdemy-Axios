@@ -1,3 +1,5 @@
+[Axios](https://axios-http.com/docs/api_intro) consuming an example API called [JSONPlaceholder](http://jsonplaceholder.typicode.com/)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
